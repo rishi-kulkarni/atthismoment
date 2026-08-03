@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import ShowNav from '../../../components/ShowNav.astro';
+import { getShows, formatDate } from '../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows().map((show) => ({ params: { year: show.year }, props: { show } }));
+}
+
+const { show } = Astro.props;
+
+const STATUS = { 'on-view': 'On view', upcoming: 'Upcoming', past: 'Past' };
+
+const dates = [
+  ['Exhibition', show.runsOn],
+  ['Closing reception', formatDate(show.dates.reception)],
+  ['Online gallery', formatDate(show.dates.online_gallery_opens)],
+].filter(([, value]) => Boolean(value));
+
+const venue = [show.venue?.name, show.venue?.organization, show.venue?.city]
+  .filter(Boolean)
+  .join(', ');
+---
+
+<Base title={`${show.year} Exhibition`} description={show.statement}>
+  <ShowNav show={show} />
+
+  <div class="wrap page-head">
+    <p class="eyebrow">
+      {show.title} · {show.year} · {STATUS[show.status]}
+    </p>
+    <h1 class="block-title">{show.subtitle}</h1>
+  </div>
+
+  <div class="wrap split">
+    <div class="split__main">
+      <div class="prose prose--lead">
+        <p>{show.statement}</p>
+      </div>
+
+      {
+        show.promoImage && (
+          <figure class="show-promo">
+            <Image
+              src={show.promoImage}
+              alt={`Promotional graphic for ${show.title} ${show.year}`}
+              widths={[480, 720, 1000]}
+              sizes="(max-width: 46rem) 92vw, 34rem"
+              loading="eager"
+            />
+            {show.promo_credit && (
+              <figcaption class="hero__credit">Image credit: {show.promo_credit}</figcaption>
+            )}
+          </figure>
+        )
+      }
+    </div>
+
+    <aside class="glance">
+      <h2>The {show.year} show</h2>
+      <dl>
+        {
+          dates.map(([label, value]) => (
+            <div>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))
+        }
+        {
+          venue && (
+            <div>
+              <dt>Venue</dt>
+              <dd>{venue}</dd>
+            </div>
+          )
+        }
+        {
+          show.juror?.name && (
+            <div>
+              <dt>Juror</dt>
+              <dd>
+                <a href={`${show.url}juror/`}>{show.juror.name}</a>
+              </dd>
+            </div>
+          )
+        }
+        {
+          show.artworks.length > 0 && (
+            <div>
+              <dt>Selected work</dt>
+              <dd>
+                {show.artworks.length} {show.artworks.length === 1 ? 'work' : 'works'} by{' '}
+                {show.artists.length} {show.artists.length === 1 ? 'artist' : 'artists'}
+              </dd>
+            </div>
+          )
+        }
+      </dl>
+
+      {
+        show.artworks.length > 0 && (
+          <div class="cta-stack">
+            <a class="cta cta--primary" href={`${show.url}gallery/`}>
+              View the gallery
+            </a>
+          </div>
+        )
+      }
+    </aside>
+  </div>
+</Base>

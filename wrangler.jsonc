@@ -1,9 +1,11 @@
 {
-  // The production branch still serves the original single page. The build
-  // script copies it into dist/; Cloudflare only has to hand out files.
+  // Static hosting on Cloudflare Workers. No Worker script and no Astro
+  // adapter: the site is prerendered, so Cloudflare only serves files.
   "name": "atthismoment",
   "compatibility_date": "2026-08-03",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    // Serves the built 404.astro page instead of a bare Cloudflare error.
+    "not_found_handling": "404-page"
   }
 }

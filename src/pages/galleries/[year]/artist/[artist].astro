@@ -1,0 +1,71 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import Hang from '../../../../components/Hang.astro';
+import ShowNav from '../../../../components/ShowNav.astro';
+import { getShows } from '../../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows().flatMap((show) =>
+    show.artists.map((artist) => ({
+      params: { year: show.year, artist: artist.slug },
+      props: { show, artist },
+    }))
+  );
+}
+
+const { show, artist } = Astro.props;
+const count = artist.artworks.length;
+const awards = [...new Set(artist.artworks.map((work) => work.award).filter(Boolean))];
+---
+
+<Base
+  title={`${artist.name} — ${show.year}`}
+  description={`${artist.name} in ${show.title} ${show.year}.`}
+>
+  <ShowNav show={show} />
+
+  <div class="wrap artist-head">
+    <div>
+      <p class="eyebrow">
+        <a href={`${show.url}artists/`}>{show.year} artists</a>
+      </p>
+      <h1 class="artist-head__name">{artist.name}</h1>
+      {artist.location && <p class="eyebrow" style="margin-top:.6rem">{artist.location}</p>}
+      {
+        awards.length > 0 && (
+          <p class="artist-head__awards">
+            {awards.map((award) => (
+              <a class="work__award" href={`${show.url}awards/`}>
+                {award}
+              </a>
+            ))}
+          </p>
+        )
+      }
+    </div>
+
+    <div>
+      {artist.bio && <p class="artist-head__bio">{artist.bio}</p>}
+      <p class="artist-head__links">
+        {
+          artist.website && (
+            <>
+              <a href={artist.website} rel="noreferrer">
+                Artist website
+              </a>
+              {' · '}
+            </>
+          )
+        }
+        <a href="/artists/">All artists, every show</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="eyebrow" style="padding-bottom:1.5rem">
+      {count} {count === 1 ? 'work' : 'works'} in the {show.year} exhibition
+    </p>
+    <Hang works={artist.artworks} linkArtists={false} />
+  </div>
+</Base>

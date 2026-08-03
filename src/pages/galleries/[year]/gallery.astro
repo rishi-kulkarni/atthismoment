@@ -1,0 +1,44 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Hang from '../../../components/Hang.astro';
+import ShowNav from '../../../components/ShowNav.astro';
+import { getShows, formatDate } from '../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows().map((show) => ({ params: { year: show.year }, props: { show } }));
+}
+
+const { show } = Astro.props;
+const opensOn = formatDate(show.dates.online_gallery_opens);
+---
+
+<Base
+  title={`${show.year} Gallery`}
+  description={`Selected work from ${show.title} ${show.year}.`}
+>
+  <ShowNav show={show} />
+
+  <div class="wrap page-head">
+    <p class="eyebrow">{show.year} · {show.artworks.length} works</p>
+    <h1 class="block-title">Gallery</h1>
+  </div>
+
+  <div class="wrap">
+    {
+      show.artworks.length > 0 ? (
+        <Hang works={show.artworks} />
+      ) : (
+        <div class="empty">
+          <p class="empty__headline">
+            {opensOn ? `This gallery opens ${opensOn}.` : 'This gallery is being prepared.'}
+          </p>
+          <p>
+            Selected work from the {show.year} exhibition will be published here. In the
+            meantime the show can be seen in person at {show.venue?.name}
+            {show.venue?.city && <> in {show.venue.city}</>}.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</Base>

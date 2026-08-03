@@ -1,0 +1,7 @@
+artist,artist_location,artist_website,artist_bio,title,year,medium,width_in,height_in,dimensions,award,image,description
+Ada Example,"Somerville, MA",https://example.com,"Ada Example is a painter working in oil and cold wax. She has shown throughout New England since 2009.",Low Tide,2025,Oil and cold wax on panel,24,18,,Juror's Award,ada-example-low-tide.jpg,"The panel was prepared with six coats of absorbent ground, sanded between each, until the surface held pigment the way blotting paper holds ink.
+
+The final layers were scraped back with a razor to expose the earlier ones. Note the blank line above: that is what separates paragraphs."
+Ada Example,,,,Harbor Fog,2026,Oil on linen,36,36,,,ada-example-harbor-fog.jpg,
+Ben Sample,"Providence, RI",,"Ben Sample makes collage from salvaged printed matter.",Transit Papers,2025,Collage and acrylic on board,12,16,,,ben-sample-transit-papers.jpg,"Built from bus transfers and ticket stubs collected over fourteen months, adhered with wheat paste and sealed under thin acrylic glazes."
+Chandra Placeholder,"Brattleboro, VT",https://example.org,"Chandra Placeholder paints large-format abstractions drawn from field notes.",Meltwater,2026,Acrylic on canvas,60,48,,Honorable Mention,chandra-placeholder-meltwater.jpg,

@@ -1,0 +1,45 @@
+# To start the next show, copy this folder to content/shows/2028/ and edit
+# the values below. The nav menu, galleries index, and artist list pick it
+# up on their own.
+
+year: 2026
+title: At This Moment
+subtitle: Painting and Collage in New England
+
+# Lives in the images/ folder next to this file.
+promo: promo.webp
+promo_credit: Kate Derosier
+
+juror:
+  name: Deborah Krieger
+  title: Outreach and Research Manager, Louis Stern Fine Arts
+  url: https://www.i-on-the-arts.com/p/about.html
+  # Optional. Blank lines separate paragraphs. An optional `image:` line
+  # naming a file in images/ adds a portrait.
+  bio: >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Placeholder text for
+    the juror biography; replace with a real one.
+
+venue:
+  name: Molly Harding Nye Gallery
+  organization: LexArt
+  city: Lexington, Massachusetts
+
+# YYYY-MM-DD. These drive the timeline and the on view / past labels.
+# Leave a line out if it doesn't apply to a given show.
+dates:
+  submission_deadline: 2026-07-03
+  notification: 2026-07-15
+  opens: 2026-08-08
+  closes: 2026-08-30
+  online_gallery_opens: 2026-08-22
+  reception: 2026-08-29
+
+statement: >
+  At This Moment celebrates painting in all its forms and its long-standing
+  role in how people express themselves. The exhibition welcomes work in all
+  painting media, as well as collage and mixed-media pieces with a strong
+  painted element. Selected work by emerging and established artists living
+  or working anywhere in New England is shown in LexArt's Molly Harding Nye
+  Gallery, a museum-style exhibition space in the center of Lexington.
