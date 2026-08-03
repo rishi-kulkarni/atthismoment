@@ -1,0 +1,8 @@
+{
+  "name": "atthismoment",
+  "private": true,
+  "description": "atthismoment.show - the current single-page site",
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html ATM_2026.webp dist/"
+  }
+}
