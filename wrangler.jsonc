@@ -1,0 +1,9 @@
+{
+  // The production branch still serves the original single page. The build
+  // script copies it into dist/; Cloudflare only has to hand out files.
+  "name": "atthismoment",
+  "compatibility_date": "2026-08-03",
+  "assets": {
+    "directory": "./dist"
+  }
+}
