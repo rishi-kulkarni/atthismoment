@@ -16,6 +16,9 @@ juror:
   url: https://www.i-on-the-arts.com/p/about.html
   # Optional. Blank lines separate paragraphs. An optional `image:` line
   # naming a file in images/ adds a portrait.
+  # Put the image file in atthismoment/content/shows/YYYY/images/
+  # (and put it on github correctly)
+  image: DK_bio.jpeg
   bio: >
     Deborah Krieger is based in Los Angeles, where she is the Outreach and 
     Research Manager at Louis Stern Fine Arts, a historical art gallery in 
@@ -28,6 +31,7 @@ juror:
     is the recipient of a Fulbright Combined Grant to Vienna, Austria. Her 
     arts writing has been published in the Los Angeles Review of Books, 
     Hyperallergic, Artillery Magazine, and the Artblog, among other outlets.
+
 
 venue:
   name: Molly Harding Nye Gallery
