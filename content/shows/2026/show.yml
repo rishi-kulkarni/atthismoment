@@ -17,9 +17,17 @@ juror:
   # Optional. Blank lines separate paragraphs. An optional `image:` line
   # naming a file in images/ adds a portrait.
   bio: >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Placeholder text for
-    the juror biography; replace with a real one.
+    Deborah Krieger is based in Los Angeles, where she is the Outreach and 
+    Research Manager at Louis Stern Fine Arts, a historical art gallery in 
+    West Hollywood. She previously served as the Exhibit & Program 
+    Coordinator at the Museum of Work & Culture in Woonsocket, Rhode Island; 
+    the Curatorial Fellow at the David Winton Bell Gallery of Brown 
+    University; and the Curatorial Assistant at the Delaware Art Museum 
+    in Wilmington, Delaware. She has an M.A. in Public Humanities from 
+    Brown University and a B.A. in Art History from Swarthmore College and 
+    is the recipient of a Fulbright Combined Grant to Vienna, Austria. Her 
+    arts writing has been published in the Los Angeles Review of Books, 
+    Hyperallergic, Artillery Magazine, and the Artblog, among other outlets.
 
 venue:
   name: Molly Harding Nye Gallery
