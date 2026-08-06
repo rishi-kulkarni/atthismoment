@@ -1,11 +1,11 @@
 :root {
   /* Sampled off the promo poster, not guessed at. */
-  --mid: #596969; /* pick a midtone from the poster */
-  --light: #8FA6B6; /* pick a light color from the poster */
-  --deep: #28211C; /* pick a "black" from the poster */
+  --mid: #667765; /* pick a characteristic midtone from the poster, look for V 40-50 */
+  --light: #99B398; /* start with mid, set V to 70 */
+  --deep: #2B332B; /* start with mid, set V to 20 */
   --accent: #ED3B5B; /* poster title box */
-  --wall: #F3E7E9; /* start with accent, set V to 95 and S to 5 */
-  --wall-deep: #E6DADC; /* start with accent, set V to 90 and S to 5*/
+  --wall: #FAF3F4; /* start with accent, set V to 98 and S to 3 */
+  --wall-deep: #F3B6C1; /* start with accent, set V to 95 and S to 25*/
 
   --ink: var(--deep);
   --ink-soft: var(--mid);
@@ -34,7 +34,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--wall);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--body-font);
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
@@ -763,7 +763,7 @@ main {
 
 .site-footer {
   border-top: var(--rule);
-  background: var(--paper);
+  background: var(--wall);
   padding-block: 3rem 4rem;
   font-size: 0.9rem;
 }
