@@ -1,8 +1,8 @@
 :root {
   /* Sampled off the promo poster, not guessed at. */
-  --mid: #667765; /* pick a characteristic midtone from the poster, look for V 40-50 */
-  --light: #99B398; /* start with mid, set V to 70 */
-  --deep: #2B332B; /* start with mid, set V to 20 */
+  --mid: #667080; /* pick a characteristic midtone from the poster, set V 50 S 20 */
+  --light: #919499; /* start with mid, set V to 60 S to 5*/
+  --deep: #282C33; /* start with mid, set V to 20 */
   --accent: #ED3B5B; /* poster title box */
   --wall: #FAF3F4; /* start with accent, set V to 98 and S to 3 */
   --wall-deep: #F3B6C1; /* start with accent, set V to 95 and S to 25*/
@@ -115,7 +115,7 @@ a:hover {
 
 .site-header {
   border-bottom: var(--rule);
-  background: var(--wall);
+  background: var(--paper);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -732,8 +732,8 @@ main {
 /* notices and empty states */
 
 .notice {
-  border-left: 3px solid var(--sky);
-  background: var(--paper);
+  border-left: 3px solid var(--rule);
+  background: var(--wall);
   padding: 1.1rem 1.3rem;
   margin: 0 0 2.5rem;
   max-width: var(--measure);
@@ -1053,7 +1053,7 @@ main {
    a phone rather than wrapping to two lines. */
 .show-nav {
   border-bottom: var(--rule);
-  background: var(--paper);
+  background: var(--wall);
 }
 
 .show-nav__inner {
