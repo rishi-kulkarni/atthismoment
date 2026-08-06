@@ -32,14 +32,16 @@ featured:
       href: https://www.lexart.org/
       note: Lexington, Massachusetts
 
+# Basic info for the footer
 contacts:
-  - name: Kate Derosier
-    email: kate@katederosier.com
-    handles: Artist eligibility, submission guidelines, and this website
   - name: Chase Jones
     email: chase.jones@lexart.org
     phone: 781.862.9696
-    handles: Entry fees, artwork drop-off and pick-up, and LexArt generally
+    handles: LexArt Operations Manager
+  - name: Kate Derosier
+    email: kate@katederosier.com
+    handles: Online gallery
+
 
 presented_by:
   name: LexArt

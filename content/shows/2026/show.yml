@@ -41,8 +41,8 @@ venue:
 # YYYY-MM-DD. These drive the timeline and the on view / past labels.
 # Leave a line out if it doesn't apply to a given show.
 dates:
-  submission_deadline: 2026-07-03
-  notification: 2026-07-15
+  submission_deadline: 2026-07-10
+  notification: 2026-07-25
   opens: 2026-08-08
   closes: 2026-08-30
   online_gallery_opens: 2026-08-22

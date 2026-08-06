@@ -6,10 +6,10 @@
   --wall: #eff3f8;
   --wall-deep: #dde5f0;
   --paper: #ffffff;
-  --sky: #83c9e9; /* poster ground, sampled from a flat patch */
-  --pale: #aacae6; /* poster highlight */
-  --blue: #6786c0; /* poster depths */
-  --magenta: #c85ac1; /* poster title block */
+  --sky: #51688B; /* poster ground/midtone, sampled from a flat patch */
+  --pale: #8C9A9B; /* poster highlight color */
+  --deep: #4D6256; /* poster dark/medium-dark color */
+  --accent: #ED3B5B; /* poster title box */
 
   --display-font: 'Bricolage Grotesque', 'Aptos', system-ui, sans-serif;
   --body-font: 'Source Serif 4', Georgia, serif;
@@ -50,7 +50,7 @@ img {
 
 a {
   color: var(--ink);
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
@@ -60,7 +60,7 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 2px solid var(--magenta);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 1px;
 }
@@ -85,7 +85,7 @@ a:hover {
 /* Straight off the poster. The one loud thing here. */
 .block-title {
   display: inline-block;
-  background: var(--magenta);
+  background: var(--accent);
   color: #fff;
   font-family: var(--display-font);
   font-weight: 800;
@@ -193,7 +193,7 @@ a:hover {
 
 .nav__link:hover,
 .nav__link[aria-expanded='true'] {
-  border-bottom-color: var(--magenta);
+  border-bottom-color: var(--accent);
 }
 
 .nav__link[aria-current='page'] {
@@ -245,7 +245,7 @@ a:hover {
 .nav__sublink:hover {
   background: var(--wall);
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .nav__sublink small {
@@ -418,7 +418,7 @@ main {
 
 .quicklinks a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .quicklinks small {
@@ -502,7 +502,7 @@ main {
 
 .work__artist a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .work__title {
@@ -532,7 +532,7 @@ main {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--magenta);
+  color: var(--accent);
   border: 1px solid currentColor;
   padding: 0.15rem 0.4rem;
 }
@@ -553,7 +553,7 @@ main {
 
 .work__about:hover {
   color: var(--ink);
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 @media (max-width: 40rem) {
@@ -627,7 +627,7 @@ main {
 }
 
 .status-tag[data-status='on-view'] {
-  background: var(--magenta);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -680,7 +680,7 @@ main {
 
 .letter-group a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .letter-group small {
@@ -889,8 +889,8 @@ main {
 }
 
 .cta--primary:hover {
-  background: var(--magenta);
-  border-color: var(--magenta);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .cta--secondary:hover {
@@ -936,7 +936,7 @@ main {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--magenta);
+  background: var(--accent);
 }
 
 .timeline__step[data-done='true'] {
@@ -1033,7 +1033,7 @@ main {
 
 .edition__year:hover {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .edition__meta {
@@ -1103,7 +1103,7 @@ main {
 
 .show-nav a[aria-current='page'] {
   color: var(--ink);
-  border-bottom-color: var(--magenta);
+  border-bottom-color: var(--accent);
 }
 
 .show-promo {
@@ -1158,7 +1158,7 @@ main {
 
 .roster__who h2 a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .roster__location,
@@ -1209,7 +1209,7 @@ main {
 
 .roster__works a:hover .roster__title {
   text-decoration: underline;
-  text-decoration-color: var(--magenta);
+  text-decoration-color: var(--accent);
 }
 
 .award-group {
