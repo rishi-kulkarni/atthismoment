@@ -7,9 +7,11 @@ title: At This Moment
 subtitle: Painting and Collage in New England
 
 # Lives in the images/ folder next to this file.
-promo: promo.webp
-promo_credit: Kate Derosier
+# This section goes on the homepage when this show is the featured show
+promo: promo.jpg # update to match the current promo image filename!
+promo_credit: Mary Rose O'Connell
 
+# This section goes on the Juror page for this show
 juror:
   name: Deborah Krieger
   title: Outreach and Research Manager, Louis Stern Fine Arts
