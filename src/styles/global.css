@@ -1,15 +1,16 @@
 :root {
   /* Sampled off the promo poster, not guessed at. */
-  --ink: #202a4e;
-  --ink-soft: #4d5779;
-  --ink-faint: #8b93ad;
-  --wall: #eff3f8;
-  --wall-deep: #dde5f0;
-  --paper: #ffffff;
-  --sky: #51688B; /* poster ground/midtone, sampled from a flat patch */
-  --pale: #8C9A9B; /* poster highlight color */
-  --deep: #4D6256; /* poster dark/medium-dark color */
+  --mid: #596969; /* pick a midtone from the poster */
+  --light: #8FA6B6; /* pick a light color from the poster */
+  --deep: #28211C; /* pick a "black" from the poster */
   --accent: #ED3B5B; /* poster title box */
+  --wall: #F3E7E9; /* start with accent, set V to 95 and S to 5 */
+  --wall-deep: #E6DADC; /* start with accent, set V to 90 and S to 5*/
+
+  --ink: var(--deep);
+  --ink-soft: var(--mid);
+  --ink-faint: var(--light);
+  --paper: #ffffff;
 
   --display-font: 'Bricolage Grotesque', 'Aptos', system-ui, sans-serif;
   --body-font: 'Source Serif 4', Georgia, serif;
