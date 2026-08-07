@@ -7,19 +7,33 @@ title: At This Moment
 subtitle: Painting and Collage in New England
 
 # Lives in the images/ folder next to this file.
-promo: promo.webp
-promo_credit: Kate Derosier
+# This section goes on the homepage when this show is the featured show
+promo: promo.jpg # update to match the current promo image filename!
+promo_credit: Mary Rose O'Connell
 
+# This section goes on the Juror page for this show
 juror:
   name: Deborah Krieger
   title: Outreach and Research Manager, Louis Stern Fine Arts
   url: https://www.i-on-the-arts.com/p/about.html
   # Optional. Blank lines separate paragraphs. An optional `image:` line
   # naming a file in images/ adds a portrait.
+  # Put the image file in atthismoment/content/shows/YYYY/images/
+  # (and put it on github correctly)
+  image: DK_bio.jpeg
   bio: >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Placeholder text for
-    the juror biography; replace with a real one.
+    Deborah Krieger is based in Los Angeles, where she is the Outreach and 
+    Research Manager at Louis Stern Fine Arts, a historical art gallery in 
+    West Hollywood. She previously served as the Exhibit & Program 
+    Coordinator at the Museum of Work & Culture in Woonsocket, Rhode Island; 
+    the Curatorial Fellow at the David Winton Bell Gallery of Brown 
+    University; and the Curatorial Assistant at the Delaware Art Museum 
+    in Wilmington, Delaware. She has an M.A. in Public Humanities from 
+    Brown University and a B.A. in Art History from Swarthmore College and 
+    is the recipient of a Fulbright Combined Grant to Vienna, Austria. Her 
+    arts writing has been published in the Los Angeles Review of Books, 
+    Hyperallergic, Artillery Magazine, and the Artblog, among other outlets.
+
 
 venue:
   name: Molly Harding Nye Gallery
@@ -29,8 +43,8 @@ venue:
 # YYYY-MM-DD. These drive the timeline and the on view / past labels.
 # Leave a line out if it doesn't apply to a given show.
 dates:
-  submission_deadline: 2026-07-03
-  notification: 2026-07-15
+  submission_deadline: 2026-07-10
+  notification: 2026-07-25
   opens: 2026-08-08
   closes: 2026-08-30
   online_gallery_opens: 2026-08-22

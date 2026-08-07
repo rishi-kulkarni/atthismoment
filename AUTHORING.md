@@ -19,7 +19,7 @@ content/
       show.yml                dates, juror, venue for the 2026 show
       artworks.csv            one row per artwork
       images/                 the promo graphic and the artwork photos
-    EXAMPLE-artworks.csv      a filled-in sample to copy the format from
+    EXAMPLE-artworks.csv      a filled-in sample to copy the format from (don't edit)
 ```
 
 The pages that list things build themselves from those files. The navigation
