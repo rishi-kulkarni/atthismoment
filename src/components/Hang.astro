@@ -1,0 +1,443 @@
+---
+// Artworks sized to their real dimensions, sharing a centreline down each
+// row the way work is hung on a wall. Sizes come from width_in/height_in in
+// artworks.csv; rows without them fall back to the photo's own proportions.
+import { Image, getImage } from 'astro:assets';
+
+const { works, linkArtists = true } = Astro.props;
+
+const NOMINAL_HEIGHT_IN = 24;
+
+const items = await Promise.all(
+  works.map(async (work) => {
+    const aspect = work.image.width / work.image.height;
+    const width = work.width ?? NOMINAL_HEIGHT_IN * aspect;
+    const height = work.height ?? NOMINAL_HEIGHT_IN;
+
+    // Capped so a 6000px photograph isn't a 6000px download.
+    const full = await getImage({
+      src: work.image,
+      width: Math.min(work.image.width, 2200),
+      format: 'webp',
+    });
+
+    const meta = [work.medium, work.dimensions, work.year].filter(Boolean).join(' · ');
+    // Blank lines in the CSV cell separate paragraphs.
+    const paragraphs = (work.description ?? '')
+      .split(/\n\s*\n/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    return { work, width, height, full, meta, paragraphs };
+  })
+);
+---
+
+<div class="hang" data-hang>
+  {
+    items.map(({ work, width, height, full, meta, paragraphs }, index) => (
+      <figure class="work" style={`--w:${width.toFixed(2)}; --h:${height.toFixed(2)}`}>
+        <a
+          class="work__frame"
+          href={full.src}
+          data-pswp-width={full.attributes.width ?? work.image.width}
+          data-pswp-height={full.attributes.height ?? work.image.height}
+          data-artist={work.artist}
+          data-artist-url={`/galleries/${work.showYear}/artist/${work.artistSlug}/`}
+          data-title={work.title}
+          data-meta={meta}
+          data-award={work.award ?? ''}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Image
+            src={work.image}
+            alt={`${work.title}, ${work.medium ?? 'artwork'} by ${work.artist}`}
+            widths={[320, 480, 720, 1080]}
+            sizes="(max-width: 40rem) 92vw, 34rem"
+            loading="lazy"
+          />
+          {/* Read by the lightbox, and keeps the text in the page for search. */}
+          {paragraphs.length > 0 && (
+            <template data-description set:html={paragraphs.map((p) => `<p>${p}</p>`).join('')} />
+          )}
+        </a>
+
+        <figcaption class="work__caption">
+          <p class="work__artist">
+            {linkArtists ? (
+              <a href={`/galleries/${work.showYear}/artist/${work.artistSlug}/`}>{work.artist}</a>
+            ) : (
+              work.artist
+            )}
+          </p>
+          <p class="work__title">{work.title}</p>
+          {meta && <p class="work__meta">{meta}</p>}
+          <p class="work__tags">
+            {work.award && <span class="work__award">{work.award}</span>}
+            {paragraphs.length > 0 && (
+              <button class="work__about" type="button" data-open-info={index}>
+                About this work
+              </button>
+            )}
+          </p>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  // A page can hold more than one hang. The awards page renders one per
+  // award, so each container gets its own lightbox and its own state.
+  for (const gallery of document.querySelectorAll('[data-hang]')) {
+    const WIDE = () => window.matchMedia('(min-width: 62rem)').matches;
+    const PANEL_WIDTH = 380;
+
+    // paddingFn reads this on every resize, so it sits outside the instance.
+    let infoOpen = false;
+
+    // Null until the viewer touches the toggle; after that their choice
+    // sticks across slides instead of undoing itself on every arrow press.
+    let userPref = null;
+
+    const lightbox = new PhotoSwipeLightbox({
+      gallery,
+      children: 'a.work__frame',
+      pswpModule: () => import('photoswipe'),
+      bgOpacity: 0.97,
+      initialZoomLevel: 'fit',
+      secondaryZoomLevel: 2,
+      maxZoomLevel: 4,
+      // Reserve room for the panel so the artwork is never hidden behind it.
+      paddingFn: () => ({
+        top: 60,
+        bottom: infoOpen && !WIDE() ? Math.round(window.innerHeight * 0.52) : 96,
+        left: 24,
+        right: infoOpen && WIDE() ? PANEL_WIDTH + 24 : 24,
+      }),
+    });
+
+    const describedBy = (anchor) => anchor?.querySelector('[data-description]');
+
+    lightbox.on('uiRegister', () => {
+      const pswp = lightbox.pswp;
+
+      // the info panel
+      pswp.ui.registerElement({
+        name: 'info-panel',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        onInit: (el) => {
+          el.className = 'pswp-info';
+          el.setAttribute('aria-live', 'polite');
+
+          const render = () => {
+            const anchor = pswp.currSlide?.data?.element;
+            if (!anchor) return;
+
+            const tpl = describedBy(anchor);
+            el.innerHTML = '';
+
+            const head = document.createElement('div');
+            head.className = 'pswp-info__head';
+
+            const artist = document.createElement('strong');
+            artist.textContent = anchor.dataset.artist ?? '';
+            const title = document.createElement('em');
+            title.textContent = anchor.dataset.title ?? '';
+            const meta = document.createElement('span');
+            meta.textContent = anchor.dataset.meta ?? '';
+            head.append(artist, title, meta);
+
+            if (anchor.dataset.award) {
+              const award = document.createElement('span');
+              award.className = 'pswp-info__award';
+              award.textContent = anchor.dataset.award;
+              head.append(award);
+            }
+
+            el.append(head);
+
+            if (tpl) {
+              const body = document.createElement('div');
+              body.className = 'pswp-info__body';
+              body.append(tpl.content.cloneNode(true));
+              el.append(body);
+            }
+
+            if (anchor.dataset.artistUrl) {
+              const more = document.createElement('a');
+              more.className = 'pswp-info__more';
+              more.href = anchor.dataset.artistUrl;
+              more.textContent = `More by ${anchor.dataset.artist ?? 'this artist'}`;
+              el.append(more);
+            }
+
+            el.dataset.hasBody = tpl ? 'true' : 'false';
+          };
+
+          pswp.on('change', render);
+        },
+      });
+
+      // the compact bar, always visible
+      pswp.ui.registerElement({
+        name: 'wall-label',
+        order: 8,
+        isButton: false,
+        appendTo: 'root',
+        onInit: (el) => {
+          el.className = 'pswp-label';
+          pswp.on('change', () => {
+            const a = pswp.currSlide?.data?.element;
+            if (!a) return;
+            el.innerHTML = '';
+            const strong = document.createElement('strong');
+            strong.textContent = a.dataset.artist ?? '';
+            const em = document.createElement('em');
+            em.textContent = a.dataset.title ?? '';
+            const span = document.createElement('span');
+            span.textContent = a.dataset.meta ?? '';
+            el.append(strong, em, span);
+          });
+        },
+      });
+
+      // the toggle
+      pswp.ui.registerElement({
+        name: 'info-toggle',
+        order: 7,
+        isButton: true,
+        title: 'About this work',
+        html: '<span class="pswp-info-toggle__text">Info</span>',
+        onClick: () => {
+          userPref = !infoOpen;
+          setOpen(userPref);
+        },
+      });
+
+      // The panel is available on every work, since it carries the link
+      // through to the artist. Only a work with notes opens it unasked.
+      const hasNotes = () => Boolean(describedBy(pswp.currSlide?.data?.element));
+
+      function setOpen(next) {
+        infoOpen = next;
+        pswp.element?.classList.toggle('pswp--info-open', infoOpen);
+        const toggle = pswp.element?.querySelector('.pswp__button--info-toggle');
+        toggle?.setAttribute('aria-pressed', String(infoOpen));
+        // Let the panel's own layout settle before refitting the artwork.
+        requestAnimationFrame(() => pswp.updateSize(true));
+      }
+
+      // Clicking the painting and clicking "About this work" land the same.
+      function applyToSlide() {
+        setOpen(userPref ?? hasNotes());
+      }
+
+      // updateSize() during the opening animation leaves the artwork sized
+      // for the full viewport and half-buried by the panel. 'change' fires
+      // mid-animation too, hence the guard.
+      let opened = false;
+
+      pswp.on('openingAnimationEnd', () => {
+        opened = true;
+        applyToSlide();
+      });
+
+      pswp.on('change', () => {
+        if (opened) applyToSlide();
+      });
+
+      pswp.on('close', () => {
+        opened = false;
+        infoOpen = false;
+        pswp.element?.classList.remove('pswp--info-open');
+      });
+    });
+
+    lightbox.init();
+
+    // Same as clicking the painting, but overrides a closed panel. Scoped
+    // to this container so indices stay in step with its own slides.
+    for (const button of gallery.querySelectorAll('[data-open-info]')) {
+      button.addEventListener('click', () => {
+        userPref = true;
+        lightbox.loadAndOpen(Number(button.dataset.openInfo));
+      });
+    }
+  }
+</script>
+
+<style is:global>
+  /* compact wall label */
+  .pswp-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.85rem 1.25rem 1rem;
+    text-align: center;
+    color: #fff;
+    font-family: var(--body-font);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    background: linear-gradient(to top, rgba(32, 42, 78, 0.9), rgba(32, 42, 78, 0));
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .pswp-label strong {
+    font-family: var(--display-font);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-right: 0.5rem;
+  }
+
+  .pswp-label em {
+    margin-right: 0.5rem;
+  }
+
+  .pswp-label span {
+    opacity: 0.72;
+  }
+
+  /* info panel */
+  .pswp-info {
+    position: absolute;
+    z-index: 6;
+    background: #fff;
+    color: var(--ink);
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pswp--info-open .pswp-info {
+    display: flex;
+  }
+
+  /* Beside the work on wide screens, so the image stays fully visible.
+     It starts below the toolbar — a full-height panel would cover the
+     close and zoom buttons, whose white icons then vanish against it. */
+  @media (min-width: 62rem) {
+    .pswp-info {
+      top: 56px;
+      right: 0;
+      bottom: 0;
+      width: 380px;
+      padding: 2rem 2rem 2.5rem;
+      box-shadow: -18px 0 40px -30px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  /* A sheet from the bottom on narrow screens. */
+  @media (max-width: 61.99rem) {
+    .pswp-info {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-height: 52vh;
+      padding: 1.5rem 1.5rem 2rem;
+      border-top: 3px solid var(--magenta);
+    }
+  }
+
+  /* The panel repeats the label's contents, so drop the label while open. */
+  .pswp--info-open .pswp-label {
+    display: none;
+  }
+
+  /* Keep the toolbar clickable above the panel at every width. */
+  .pswp__top-bar {
+    z-index: 8;
+  }
+
+  .pswp-info__head {
+    border-bottom: 1px solid var(--wall-deep);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .pswp-info__head strong {
+    display: block;
+    font-family: var(--display-font);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .pswp-info__head em {
+    display: block;
+    font-family: var(--body-font);
+    font-size: 1rem;
+    margin-top: 0.15rem;
+  }
+
+  .pswp-info__head span {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-top: 0.3rem;
+  }
+
+  .pswp-info__award {
+    display: inline-block !important;
+    margin-top: 0.6rem !important;
+    font-family: var(--display-font);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--magenta) !important;
+    border: 1px solid currentColor;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .pswp-info__body {
+    font-size: 0.92rem;
+    line-height: 1.62;
+  }
+
+  .pswp-info__body p {
+    margin: 0 0 1em;
+  }
+
+  .pswp-info__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .pswp-info__more {
+    display: block;
+    margin-top: 1.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--wall-deep);
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+
+  /* toggle button */
+  .pswp__button--info-toggle {
+    width: auto !important;
+    padding: 0 0.9rem !important;
+  }
+
+  .pswp-info-toggle__text {
+    font-family: var(--display-font);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .pswp__button--info-toggle[aria-pressed='true'] .pswp-info-toggle__text {
+    color: var(--sky);
+  }
+</style>

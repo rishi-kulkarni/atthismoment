@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPage, getShow, formatDate, hasPassed } from '../lib/content.js';
+
+const page = getPage('call-for-art');
+const { Content } = page;
+const show = getShow(page.show);
+const isOpen = page.status === 'open';
+
+const TIMELINE = [
+  ['Submissions close', show.dates.submission_deadline],
+  ['Artists notified', show.dates.notification],
+  ['Exhibition opens', show.dates.opens],
+  ['Online gallery opens', show.dates.online_gallery_opens],
+  ['Closing reception', show.dates.reception],
+]
+  .filter(([, date]) => Boolean(date))
+  .map(([label, date]) => ({ label, date, done: hasPassed(date) }));
+
+const venue = [show.venue?.name, show.venue?.city].filter(Boolean).join(', ');
+---
+
+<Base title={page.title}>
+  <div class="wrap page-head">
+    <p class="eyebrow">{show.title} · {show.year}</p>
+    <h1 class="block-title">{page.title}</h1>
+  </div>
+
+  <div class="wrap split">
+    <div class="split__main">
+      {
+        !isOpen && page.closed_notice && (
+          <div class="notice">
+            <p class="eyebrow">Submissions are closed</p>
+            <p>{page.closed_notice}</p>
+          </div>
+        )
+      }
+
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+
+    <aside class="glance">
+      <h2>At a glance</h2>
+      <dl>
+        <div>
+          <dt>Status</dt>
+          <dd>{isOpen ? 'Open for submissions' : 'Closed'}</dd>
+        </div>
+
+        {
+          show.dates.submission_deadline && (
+            <div>
+              <dt>Deadline</dt>
+              <dd>{formatDate(show.dates.submission_deadline)}</dd>
+            </div>
+          )
+        }
+
+        {
+          page.entry_fee && (
+            <div>
+              <dt>Entry fee</dt>
+              <dd>{page.entry_fee}</dd>
+            </div>
+          )
+        }
+
+        {
+          show.juror?.name && (
+            <div>
+              <dt>Juror</dt>
+              <dd>
+                {show.juror.url ? (
+                  <a href={show.juror.url}>{show.juror.name}</a>
+                ) : (
+                  show.juror.name
+                )}
+                {show.juror.title && <>, {show.juror.title}</>}
+              </dd>
+            </div>
+          )
+        }
+
+        {
+          venue && (
+            <div>
+              <dt>Venue</dt>
+              <dd>{venue}</dd>
+            </div>
+          )
+        }
+
+        {
+          (page.at_a_glance ?? []).map((row) => (
+            <div>
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      {
+        isOpen ? (
+          <div class="cta-stack">
+            <a class="cta cta--primary" href={page.entry_url}>
+              Pay entry fee &amp; apply
+            </a>
+            <a class="cta cta--secondary" href={page.guidelines_url}>
+              Submission guidelines
+            </a>
+          </div>
+        ) : (
+          page.guidelines_url && (
+            <div class="cta-stack">
+              <a class="cta cta--secondary" href={page.guidelines_url}>
+                {show.year} guidelines
+              </a>
+            </div>
+          )
+        )
+      }
+    </aside>
+  </div>
+
+  {
+    TIMELINE.length > 0 && (
+      <div class="wrap timeline-section">
+        <h2>{show.year} timeline</h2>
+        <ol class="timeline">
+          {TIMELINE.map((step) => (
+            <li class="timeline__step" data-done={String(step.done)}>
+              <span class="timeline__date">{formatDate(step.date, { withYear: false })}</span>
+              <span class="timeline__label">{step.label}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )
+  }
+</Base>

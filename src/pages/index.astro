@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { getSite, getShow } from '../lib/content.js';
+
+const site = getSite();
+const featured = getShow(site.featured.show);
+const links = site.featured.links ?? [];
+---
+
+<Base>
+  <div class="wrap hero">
+    <figure class="hero__figure">
+      {
+        featured.promoImage && (
+          <Image
+            src={featured.promoImage}
+            alt={`Promotional graphic for ${featured.title} ${featured.year}`}
+            widths={[480, 720, 1000]}
+            sizes="(max-width: 46rem) 92vw, 40rem"
+            loading="eager"
+          />
+        )
+      }
+      {
+        featured.promo_credit && (
+          <figcaption class="hero__credit">Image credit: {featured.promo_credit}</figcaption>
+        )
+      }
+    </figure>
+
+    <div>
+      <p class="eyebrow">{site.featured.eyebrow}</p>
+      <h1 class="block-title hero__title">{site.featured.headline}</h1>
+      <p class="hero__brief">{site.featured.brief}</p>
+
+      {
+        links.length > 0 && (
+          <ul class="quicklinks">
+            {links.map((link) => (
+              <li>
+                <a href={link.href}>
+                  {link.text}
+                  {link.note && <small>{link.note}</small>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Hang from '../../../components/Hang.astro';
+import ShowNav from '../../../components/ShowNav.astro';
+import { getShows } from '../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows()
+    .filter((show) => show.awards.length > 0)
+    .map((show) => ({ params: { year: show.year }, props: { show } }));
+}
+
+const { show } = Astro.props;
+const total = show.awards.reduce((sum, award) => sum + award.works.length, 0);
+---
+
+<Base
+  title={`${show.year} Awards`}
+  description={`Work recognised in ${show.title} ${show.year}.`}
+>
+  <ShowNav show={show} />
+
+  <div class="wrap page-head">
+    <p class="eyebrow">
+      {show.year} · {total} {total === 1 ? 'work' : 'works'} recognised
+    </p>
+    <h1 class="block-title">Awards</h1>
+    {
+      show.juror?.name && (
+        <p class="page-head__sub">
+          Selected by <a href={`${show.url}juror/`}>{show.juror.name}</a>
+          {show.juror.title && <>, {show.juror.title}</>}.
+        </p>
+      )
+    }
+  </div>
+
+  {
+    show.awards.map((award) => (
+      <section class="wrap award-group">
+        <h2 class="award-group__name">{award.name}</h2>
+        <Hang works={award.works} />
+      </section>
+    ))
+  }
+</Base>

@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import ShowNav from '../../../components/ShowNav.astro';
+import { getShows } from '../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows()
+    .filter((show) => Boolean(show.juror?.name))
+    .map((show) => ({ params: { year: show.year }, props: { show } }));
+}
+
+const { show } = Astro.props;
+const juror = show.juror;
+
+// Blank lines in the YAML bio separate paragraphs.
+const paragraphs = (juror.bio ?? '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<Base title={`${show.year} Juror`} description={`${juror.name} juried ${show.title} ${show.year}.`}>
+  <ShowNav show={show} />
+
+  <div class="wrap page-head">
+    <p class="eyebrow">{show.year} juror</p>
+    <h1 class="block-title">{juror.name}</h1>
+    {juror.title && <p class="page-head__sub">{juror.title}</p>}
+  </div>
+
+  <div class="wrap split">
+    <div class="split__main">
+      {
+        paragraphs.length > 0 ? (
+          <div class="prose prose--lead">
+            {paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        ) : (
+          <div class="prose">
+            <p>
+              {juror.name} selected the work in the {show.year} exhibition.
+              {juror.url && (
+                <>
+                  {' '}
+                  <a href={juror.url}>More about {juror.name}</a>.
+                </>
+              )}
+            </p>
+          </div>
+        )
+      }
+    </div>
+
+    <aside class="glance">
+      {
+        juror.image && (
+          <figure class="juror-portrait">
+            <Image
+              src={show.jurorImage}
+              alt={juror.name}
+              widths={[240, 480]}
+              sizes="15rem"
+              loading="eager"
+            />
+          </figure>
+        )
+      }
+      <h2>Juror</h2>
+      <dl>
+        <div>
+          <dt>Name</dt>
+          <dd>{juror.name}</dd>
+        </div>
+        {
+          juror.title && (
+            <div>
+              <dt>Role</dt>
+              <dd>{juror.title}</dd>
+            </div>
+          )
+        }
+        <div>
+          <dt>Exhibition</dt>
+          <dd>
+            <a href={show.url}>
+              {show.title} {show.year}
+            </a>
+          </dd>
+        </div>
+      </dl>
+
+      {
+        juror.url && (
+          <div class="cta-stack">
+            <a class="cta cta--secondary" href={juror.url}>
+              Juror's website
+            </a>
+          </div>
+        )
+      }
+    </aside>
+  </div>
+</Base>

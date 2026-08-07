@@ -1,0 +1,119 @@
+---
+// "Online Galleries" builds its sub-menu from content/shows/.
+import { getShows } from '../lib/content.js';
+
+const { pathname } = Astro.url;
+const shows = getShows();
+
+const isCurrent = (href) => pathname === href;
+const isWithin = (prefix) => pathname.startsWith(prefix);
+
+const STATUS_LABEL = {
+  'on-view': 'On view now',
+  upcoming: 'Upcoming',
+  past: 'Past',
+};
+---
+
+<button
+  class="nav-toggle"
+  type="button"
+  aria-expanded="false"
+  aria-controls="site-nav"
+  data-nav-toggle
+>
+  Menu
+</button>
+
+<nav class="nav" id="site-nav" aria-label="Main">
+  <ul class="nav__list">
+    <li class="nav__item">
+      <a class="nav__link" href="/about/" aria-current={isCurrent('/about/') ? 'page' : undefined}>
+        About
+      </a>
+    </li>
+
+    <li class="nav__item">
+      <a
+        class="nav__link"
+        href="/call-for-art/"
+        aria-current={isCurrent('/call-for-art/') ? 'page' : undefined}
+      >
+        Call for Art
+      </a>
+    </li>
+
+    <li class="nav__item" data-nav-parent>
+      <button
+        class="nav__link"
+        type="button"
+        aria-expanded="false"
+        data-nav-trigger
+        style={isWithin('/galleries/') ? 'border-bottom-color: var(--ink)' : undefined}
+      >
+        Online Galleries<span class="nav__caret" aria-hidden="true">▾</span>
+      </button>
+      <ul class="nav__submenu" hidden data-nav-submenu>
+        {
+          shows.map((show) => (
+            <li>
+              <a class="nav__sublink" href={show.url}>
+                {show.year}
+                <small>{STATUS_LABEL[show.status]}</small>
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="nav__sublink" href="/galleries/">All galleries</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav__item">
+      <a
+        class="nav__link"
+        href="/artists/"
+        aria-current={isCurrent('/artists/') ? 'page' : undefined}
+      >
+        Artists
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  // CSS handles hover. This adds click and keyboard, which hover can't.
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('#site-nav');
+
+  toggle?.addEventListener('click', () => {
+    const open = nav?.getAttribute('data-open') === 'true';
+    nav?.setAttribute('data-open', String(!open));
+    toggle.setAttribute('aria-expanded', String(!open));
+  });
+
+  for (const parent of document.querySelectorAll('[data-nav-parent]')) {
+    const trigger = parent.querySelector('[data-nav-trigger]');
+    const submenu = parent.querySelector('[data-nav-submenu]');
+    if (!trigger || !submenu) continue;
+
+    const setOpen = (open) => {
+      submenu.hidden = !open;
+      trigger.setAttribute('aria-expanded', String(open));
+    };
+
+    trigger.addEventListener('click', () => setOpen(submenu.hidden));
+
+    parent.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !submenu.hidden) {
+        setOpen(false);
+        trigger.focus();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!parent.contains(event.target) && !submenu.hidden) setOpen(false);
+    });
+  }
+</script>
