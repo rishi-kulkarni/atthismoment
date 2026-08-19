@@ -633,7 +633,7 @@ main {
 }
 
 .status-tag[data-status='upcoming'] {
-  background: var(--sky);
+  background: var(--wall);
   color: var(--ink);
 }
 
