@@ -579,6 +579,10 @@ NOT COVERED BY INFO PANEL */
   .work__caption {
     min-height: 0;
   }
+
+  /* KIND OF HACKY SOLUTION FOR MOVING LIGHTBOX BUTTON SO IT'S
+  NOT COVERED BY INFO PANEL */
+  .pswp__button--arrow--next{right:0}
 }
 
 /* galleries index */
