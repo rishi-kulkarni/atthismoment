@@ -725,6 +725,7 @@ NOT COVERED BY INFO PANEL */
 .artist-head__bio {
   margin: 0;
   max-width: var(--measure);
+  padding: 2rem;
 }
 
 .artist-head__links {

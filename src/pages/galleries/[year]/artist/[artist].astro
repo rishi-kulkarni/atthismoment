@@ -42,10 +42,6 @@ const awards = [...new Set(artist.artworks.map((work) => work.award).filter(Bool
           </p>
         )
       }
-    </div>
-
-    <div>
-      {artist.bio && <p class="artist-head__bio">{artist.bio}</p>}
       <p class="artist-head__links">
         {
           artist.website && (
@@ -60,10 +56,14 @@ const awards = [...new Set(artist.artworks.map((work) => work.award).filter(Bool
         <a href="/artists/">All artists, every show</a>
       </p>
     </div>
+
+    <div>
+      {artist.bio && <p class="artist-head__bio">{artist.bio}</p>}
+    </div>
   </div>
 
   <div class="wrap">
-    <p class="eyebrow" style="padding-bottom:1.5rem">
+    <p class="eyebrow" style="padding-bottom:0.5rem">
       {count} {count === 1 ? 'work' : 'works'} in the {show.year} exhibition
     </p>
     <Hang works={artist.artworks} linkArtists={false} />
