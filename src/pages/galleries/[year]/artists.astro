@@ -35,7 +35,8 @@ const { show } = Astro.props;
               <h2>
                 <a href={artist.url}>{artist.name}</a>
               </h2>
-              {artist.location && <p class="roster__location">{artist.location}</p>}
+              // used to have artist location shown, remove this
+              // {artist.location && <p class="roster__location">{artist.location}</p>} 
               <p class="roster__count">
                 {artist.artworks.length} {artist.artworks.length === 1 ? 'work' : 'works'}
               </p>

@@ -63,7 +63,7 @@ const awards = [...new Set(artist.artworks.map((work) => work.award).filter(Bool
   </div>
 
   <div class="wrap">
-    <p class="eyebrow" style="padding-bottom:0.5rem">
+    <p class="eyebrow" style="padding-bottom:0">
       {count} {count === 1 ? 'work' : 'works'} in the {show.year} exhibition
     </p>
     <Hang works={artist.artworks} linkArtists={false} />
