@@ -6,7 +6,8 @@ import { Image, getImage } from 'astro:assets';
 
 const { works, linkArtists = true } = Astro.props;
 
-const NOMINAL_HEIGHT_IN = 24;
+// this was originally 24
+const NOMINAL_HEIGHT_IN = 48;
 
 const items = await Promise.all(
   works.map(async (work) => {
