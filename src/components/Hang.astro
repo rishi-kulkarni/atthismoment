@@ -174,7 +174,7 @@ const items = await Promise.all(
               const more = document.createElement('a');
               more.className = 'pswp-info__more';
               more.href = anchor.dataset.artistUrl;
-              more.textContent = `More by ${anchor.dataset.artist ?? 'this artist'}`;
+              more.textContent = `About ${anchor.dataset.artist ?? 'this artist'}`;
               el.append(more);
             }
 
