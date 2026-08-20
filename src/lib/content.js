@@ -18,7 +18,7 @@ const CSV_FILES = import.meta.glob('/content/**/*.csv', {
   import: 'default',
 });
 
-const IMAGE_FILES = import.meta.glob('/content/**/images/*.{jpg,jpeg,png,webp,avif}', {
+const IMAGE_FILES = import.meta.glob('/content/**/images/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}', {
   eager: true,
   import: 'default',
 });
