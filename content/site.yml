@@ -15,8 +15,8 @@ description: >
 # rewrite the four fields below it. Nothing else on the site moves.
 featured:
   show: 2026
-  eyebrow: Opening August 8
-  headline: The 2026 exhibition opens this month
+  eyebrow: August 8 - August 30, 2026
+  headline: 2026 exhibition now open
   brief: >
     Recent work by painters from across New England, selected by juror
     Deborah Krieger. The exhibition runs August 8–30 at LexArt's Molly
@@ -31,6 +31,9 @@ featured:
     - text: Plan your visit to LexArt
       href: https://www.lexart.org/
       note: Lexington, Massachusetts
+    - text: Attend the reception
+      href: https://www.lexart.org/exhibit-information/at-this-moment
+      note: Saturday, August 29, 2-4pm
 
 # Basic info for the footer
 contacts:
