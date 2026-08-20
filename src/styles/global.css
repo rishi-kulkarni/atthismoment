@@ -563,6 +563,9 @@ main {
 /* KIND OF HACKY SOLUTION FOR MOVING LIGHTBOX BUTTON SO IT'S
 NOT COVERED BY INFO PANEL */
 .pswp__button--arrow--next{right:380px}
+@media (max-width:990px){
+  .pswp__button--arrow--next{right:0}
+}
 
 @media (max-width: 40rem) {
   .hang {
@@ -580,9 +583,6 @@ NOT COVERED BY INFO PANEL */
     min-height: 0;
   }
 
-  /* KIND OF HACKY SOLUTION FOR MOVING LIGHTBOX BUTTON SO IT'S
-  NOT COVERED BY INFO PANEL */
-  .pswp__button--arrow--next{right:0}
 }
 
 /* galleries index */
