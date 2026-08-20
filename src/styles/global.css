@@ -218,8 +218,11 @@ a:hover {
   left: -0.9rem;
   min-width: 13rem;
   background: var(--paper);
-  border: var(--rule);
-  box-shadow: 0 12px 28px -18px rgba(23, 26, 58, 0.5);
+  border-left: var(--rule);
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+  border-top: 4px solid var(--wall-deep);
+  box-shadow: 0 12px 28px -18px var(--ink-faint);
   list-style: none;
   margin: 0;
   padding: 0.4rem 0;
@@ -794,7 +797,6 @@ main {
 .colophon {
   margin-top: 2.5rem;
   padding-top: 1.25rem;
-  border-top: var(--rule);
   color: var(--ink-faint);
   font-size: 0.8rem;
 }
