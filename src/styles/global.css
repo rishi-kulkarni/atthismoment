@@ -19,7 +19,7 @@
   --page-max: 78rem;
   --gutter: clamp(1.25rem, 5vw, 4rem);
 
-  --rule: 1px solid var(--wall-deep);
+  --rule: 2.5px solid var(--wall-deep);
 }
 
 *,
@@ -763,7 +763,6 @@ main {
 
 .site-footer {
   border-top: var(--rule);
-  background: var(--wall);
   padding-block: 3rem 4rem;
   font-size: 0.9rem;
 }
@@ -839,7 +838,7 @@ main {
   color: var(--ink);
   margin: 0 0 0.2rem;
   padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
 }
 
 .glance dl {
