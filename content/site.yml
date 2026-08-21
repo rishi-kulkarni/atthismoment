@@ -15,13 +15,13 @@ description: >
 # rewrite the four fields below it. Nothing else on the site moves.
 featured:
   show: 2026
-  eyebrow: August 8 - August 30, 2026
+  eyebrow: August 8 – August 30, 2026
   headline: 2026 exhibition now open
   brief: >
-    Recent work by painters from across New England, selected by juror
-    Deborah Krieger. The exhibition runs August 8–30 at LexArt's Molly
-    Harding Nye Gallery in Lexington, with a closing reception on
-    Saturday, August 29. An online gallery opens here on August 22.
+    Get inspired by what painters are doing "At This Moment" – a 
+    group show at LexArt, juried by Deborah Krieger. The exhibition 
+    runs August 8–30 at LexArt's Molly Harding Nye Gallery in Lexington, 
+    with a closing reception on Saturday, August 29.
 
   # The two or three things a visitor should do now. Not a nav bar.
   links:
