@@ -408,6 +408,16 @@ main {
 
 .quicklinks li {
   border-bottom: var(--rule);
+  list-style-type: none; /* Remove default bullets */
+  padding-left: 20px; /* Add space for custom arrows */
+  position: relative; /* Important for arrow placement */
+}
+
+.quicklinks li::before {
+  content: '➽'; /* '→'; */ /* Unicode or special arrow character */
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .quicklinks a {
@@ -418,6 +428,8 @@ main {
   padding: 0.9rem 0;
   text-decoration: none;
   font-size: 1.02rem;
+  font-family: var(--display-font);
+  text-transform: uppercase;
 }
 
 .quicklinks a:hover {
@@ -430,6 +442,7 @@ main {
   font-style: italic;
   color: var(--ink-faint);
   white-space: nowrap;
+  font-family: var(--body-font);
 }
 
 /* the hang: galleries */
