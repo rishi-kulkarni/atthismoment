@@ -19,7 +19,7 @@ content/
       show.yml                dates, juror, venue for the 2026 show
       artworks.csv            one row per artwork
       images/                 the promo graphic and the artwork photos
-    EXAMPLE-artworks.csv      a filled-in sample to copy the format from
+    EXAMPLE-artworks.csv      a filled-in sample to copy the format from (don't edit)
 ```
 
 The pages that list things build themselves from those files. The navigation
@@ -158,7 +158,7 @@ artist with three accepted pieces gets three rows.
 | `title` | yes | |
 | `image` | yes | The filename in this show's `images/` folder |
 | `artist_location` | | "Somerville, MA" |
-| `artist_website` | | Full address, starting with https:// |
+| `artist_website` | | Full address, MUST start with https:// |
 | `artist_bio` | | Only needs filling in on one row per artist |
 | `year` | | Year the work was made |
 | `medium` | | "Oil and cold wax on panel" |
@@ -170,7 +170,9 @@ artist with three accepted pieces gets three rows.
 
 **`width_in` and `height_in`** decide how large each work appears in the
 gallery. Pieces are shown at their real size relative to one another, so a 
-9 x 12 panel looks small next to a 60 x 48 canvas.
+9 x 12 panel looks small next to a 60 x 48 canvas. Leave these columns
+blank if you want all artworks scaled to the same height, and fill in
+the dimensions column (as text) instead.
 
 **`artist_bio`** only needs to be on one row. If an artist has three pieces,
 put the bio on any one of the three and leave the other two blank. A

@@ -6,7 +6,8 @@ import { Image, getImage } from 'astro:assets';
 
 const { works, linkArtists = true } = Astro.props;
 
-const NOMINAL_HEIGHT_IN = 24;
+// this was originally 24
+const NOMINAL_HEIGHT_IN = 48;
 
 const items = await Promise.all(
   works.map(async (work) => {
@@ -72,7 +73,6 @@ const items = await Promise.all(
             )}
           </p>
           <p class="work__title">{work.title}</p>
-          {meta && <p class="work__meta">{meta}</p>}
           <p class="work__tags">
             {work.award && <span class="work__award">{work.award}</span>}
             {paragraphs.length > 0 && (
@@ -174,7 +174,7 @@ const items = await Promise.all(
               const more = document.createElement('a');
               more.className = 'pswp-info__more';
               more.href = anchor.dataset.artistUrl;
-              more.textContent = `More by ${anchor.dataset.artist ?? 'this artist'}`;
+              more.textContent = `About ${anchor.dataset.artist ?? 'this artist'}`;
               el.append(more);
             }
 

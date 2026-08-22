@@ -18,7 +18,7 @@ const CSV_FILES = import.meta.glob('/content/**/*.csv', {
   import: 'default',
 });
 
-const IMAGE_FILES = import.meta.glob('/content/**/images/*.{jpg,jpeg,png,webp,avif}', {
+const IMAGE_FILES = import.meta.glob('/content/**/images/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}', {
   eager: true,
   import: 'default',
 });
@@ -145,6 +145,17 @@ function readArtworks(year) {
   const path = `/content/shows/${year}/artworks.csv`;
   const raw = CSV_FILES[path];
   if (raw === undefined) return [];
+
+  // A CSV saved by Excel as "CSV" (Windows-1252) instead of "CSV UTF-8" turns
+  // every accented letter into �, which would render as � on the site.
+  if (raw.includes('�')) {
+    throw new AuthoringError(
+      `content/shows/${year}/artworks.csv is not saved as UTF-8, so accented\n` +
+        `  letters (é, è, ñ, …) and curly quotes have been garbled.\n\n` +
+        `  In Excel, use File → Save As and pick "CSV UTF-8 (Comma delimited)".\n` +
+        `  In Google Sheets, File → Download → CSV is already UTF-8.`
+    );
+  }
 
   let rows;
   try {

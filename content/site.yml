@@ -15,31 +15,38 @@ description: >
 # rewrite the four fields below it. Nothing else on the site moves.
 featured:
   show: 2026
-  eyebrow: Opening August 8
-  headline: The 2026 exhibition opens this month
+  eyebrow: August 8 – August 30, 2026
+  headline: 2026 exhibition now open
   brief: >
-    Recent work by painters from across New England, selected by juror
-    Deborah Krieger. The exhibition runs August 8–30 at LexArt's Molly
-    Harding Nye Gallery in Lexington, with a closing reception on
-    Saturday, August 29. An online gallery opens here on August 22.
+    Get inspired by what painters are doing "At This Moment"—
+
+
+    a group show at LexArt, juried by Deborah Krieger. The exhibition 
+    runs August 8–30 at LexArt's Molly Harding Nye Gallery in Lexington, 
+    with a closing reception on Saturday, August 29.
 
   # The two or three things a visitor should do now. Not a nav bar.
   links:
     - text: Visit the online gallery
       href: /galleries/2026/gallery/
-      note: Opens August 22
+      note: Click to enter
     - text: Plan your visit to LexArt
       href: https://www.lexart.org/
       note: Lexington, Massachusetts
+    - text: Attend the reception
+      href: https://www.lexart.org/exhibit-information/at-this-moment
+      note: Saturday, August 29, 2-4pm
 
+# Basic info for the footer
 contacts:
-  - name: Kate Derosier
-    email: kate@katederosier.com
-    handles: Artist eligibility, submission guidelines, and this website
   - name: Chase Jones
     email: chase.jones@lexart.org
     phone: 781.862.9696
-    handles: Entry fees, artwork drop-off and pick-up, and LexArt generally
+    handles: LexArt Operations Manager
+  - name: Kate Derosier
+    email: kate@katederosier.com
+    handles: Online gallery
+
 
 presented_by:
   name: LexArt
