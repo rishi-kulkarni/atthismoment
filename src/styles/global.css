@@ -319,10 +319,20 @@ a:hover {
   }
 
   .wordmark__logo {
-  height: 2rem;
+  height: 1.8rem;
   width: auto;
   flex: none;
-}
+  }
+
+  .wordmark {
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1;
+  }
+
+  .wordmark__text span {
+  font-size: 0.7rem;
+  }
 }
 
 /* page furniture */
