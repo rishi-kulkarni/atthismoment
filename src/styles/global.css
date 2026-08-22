@@ -317,6 +317,12 @@ a:hover {
   .nav__item:hover .nav__submenu[hidden] {
     display: none;
   }
+
+  .wordmark__logo {
+  height: 2rem;
+  width: auto;
+  flex: none;
+}
 }
 
 /* page furniture */
