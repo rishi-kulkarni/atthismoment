@@ -137,9 +137,18 @@ a:hover {
   text-decoration: none;
   line-height: 1.1;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.wordmark span {
+.wordmark__logo {
+  height: 3rem;
+  width: auto;
+  flex: none;
+}
+
+.wordmark__text span {
   display: block;
   font-family: var(--body-font);
   font-style: italic;
