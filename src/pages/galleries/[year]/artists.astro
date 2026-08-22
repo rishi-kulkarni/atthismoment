@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import ShowNav from '../../../components/ShowNav.astro';
+import { getShows } from '../../../lib/content.js';
+
+export function getStaticPaths() {
+  return getShows()
+    .filter((show) => show.artists.length > 0)
+    .map((show) => ({ params: { year: show.year }, props: { show } }));
+}
+
+const { show } = Astro.props;
+---
+
+<Base
+  title={`${show.year} Artists`}
+  description={`The artists selected for ${show.title} ${show.year}.`}
+>
+  <ShowNav show={show} />
+
+  <div class="wrap page-head">
+    <p class="eyebrow">
+      {show.year} · {show.artists.length} artists
+    </p>
+    <h1 class="block-title">Artists in this show</h1>
+  </div>
+
+  <div class="wrap">
+    <ul class="roster">
+      {
+        show.artists.map((artist) => (
+          <li class="roster__artist">
+            <div class="roster__who">
+              <h2>
+                <a href={artist.url}>{artist.name}</a>
+              </h2>
+              <p class="roster__count">
+                {artist.artworks.length} {artist.artworks.length === 1 ? 'work' : 'works'}
+              </p>
+            </div>
+
+            <ul class="roster__works">
+              {artist.artworks.map((work) => (
+                <li>
+                  <a href={artist.url}>
+                    <Image
+                      src={work.image}
+                      alt={`${work.title} by ${artist.name}`}
+                      widths={[160, 320]}
+                      sizes="10rem"
+                      loading="lazy"
+                    />
+                    <span class="roster__title">{work.title}</span>
+                    {work.medium && <span class="roster__medium">{work.medium}</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

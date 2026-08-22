@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPage, getShows, getSite } from '../lib/content.js';
+
+const { title, subtitle, facts, Content } = getPage('about');
+const site = getSite();
+const shows = getShows();
+---
+
+<Base title={title} description={subtitle}>
+  <div class="wrap page-head">
+    <p class="eyebrow">{site.title}</p>
+    <h1 class="block-title">{title}</h1>
+    {subtitle && <p class="page-head__sub">{subtitle}</p>}
+  </div>
+
+  <div class="wrap split">
+    <div class="split__main">
+      <div class="prose prose--lead">
+        <Content />
+      </div>
+    </div>
+
+    <aside class="glance">
+      <h2>The exhibition</h2>
+      <dl>
+        {
+          (facts ?? []).map((row) => (
+            <div>
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))
+        }
+        <div>
+          <dt>Presented by</dt>
+          <dd>
+            <a href={site.presented_by?.url}>{site.presented_by?.full_name}</a>
+          </dd>
+        </div>
+      </dl>
+
+      {
+        shows.length > 0 && (
+          <div class="editions">
+            <h3>Editions</h3>
+            <ul>
+              {shows.map((show) => (
+                <li>
+                  <a class="edition__year" href={show.url}>
+                    {show.year}
+                  </a>
+                  <p class="edition__meta">
+                    {show.subtitle}
+                    {show.juror?.name && <> · Juried by {show.juror.name}</>}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </aside>
+  </div>
+</Base>

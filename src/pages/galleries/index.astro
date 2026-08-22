@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getShows } from '../../lib/content.js';
+
+const shows = getShows();
+
+const STATUS_LABEL = { 'on-view': 'On view', upcoming: 'Upcoming', past: 'Past' };
+---
+
+<Base title="Online Galleries" description="Every At This Moment exhibition, archived.">
+  <div class="wrap page-head">
+    <p class="eyebrow">Archive</p>
+    <h1 class="block-title">Online Galleries</h1>
+    <p class="page-head__sub">
+      Every edition of At This Moment, kept online permanently. The exhibition is held
+      every two years.
+    </p>
+  </div>
+
+  <div class="wrap">
+    <ul class="show-list">
+      {
+        shows.map((show) => (
+          <li class="show-card">
+            <a href={show.url}>
+              {show.promoImage && (
+                <Image
+                  src={show.promoImage}
+                  alt={`${show.title} ${show.year}`}
+                  widths={[320, 560]}
+                  sizes="(max-width: 46rem) 92vw, 20rem"
+                  loading="lazy"
+                />
+              )}
+              <p class="show-card__year">
+                {show.year}
+                <span class="status-tag" data-status={show.status}>
+                  {STATUS_LABEL[show.status]}
+                </span>
+              </p>
+              <p class="show-card__meta">{show.subtitle}</p>
+              {show.runsOn && <p class="show-card__meta">{show.runsOn}</p>}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

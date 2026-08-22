@@ -1,0 +1,34 @@
+---
+// Sections only appear when the show has something to put in them, so a
+// half-filled year doesn't advertise empty pages.
+const { show } = Astro.props;
+const { pathname } = Astro.url;
+
+const sections = [
+  { label: 'About the show', href: show.url, when: true },
+  { label: 'Gallery', href: `${show.url}gallery/`, when: true },
+  { label: 'Artists', href: `${show.url}artists/`, when: show.artists.length > 0 },
+  { label: 'Juror', href: `${show.url}juror/`, when: Boolean(show.juror?.name) },
+  { label: 'Awards', href: `${show.url}awards/`, when: show.awards.length > 0 },
+].filter((section) => section.when);
+
+// An individual artist page sits under the Artists section.
+const current = pathname.startsWith(`${show.url}artist/`) ? `${show.url}artists/` : pathname;
+---
+
+<nav class="show-nav" aria-label={`${show.year} exhibition`}>
+  <div class="wrap show-nav__inner">
+    <a class="show-nav__year" href={show.url}>{show.year}</a>
+    <ul>
+      {
+        sections.map((section) => (
+          <li>
+            <a href={section.href} aria-current={current === section.href ? 'page' : undefined}>
+              {section.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllArtists, groupByLetter } from '../lib/content.js';
+
+const artists = getAllArtists();
+const groups = groupByLetter(artists);
+---
+
+<Base
+  title="Artists"
+  description="Every artist who has shown in At This Moment, across all exhibitions."
+>
+  <div class="wrap page-head">
+    <p class="eyebrow">All exhibitions</p>
+    <h1 class="block-title">Artists</h1>
+    <p class="page-head__sub">
+      Everyone who has shown in At This Moment, listed alphabetically by last name. Click
+      any name to view that artist's profile.
+    </p>
+  </div>
+
+  <div class="wrap">
+    {
+      artists.length === 0 ? (
+        <div class="empty">
+          <p class="empty__headline">No artists are listed yet.</p>
+          <p>
+            This page fills in on its own as soon as an exhibition's artwork list is
+            published.
+          </p>
+        </div>
+      ) : (
+        <div class="artist-index">
+          {groups.map((group) => (
+            <section class="letter-group">
+              <h2 class="letter-group__letter">{group.letter}</h2>
+              <ul>
+                {group.artists.map((artist) => (
+                  <li>
+                    <a href={artist.url}>{artist.name}</a>
+                    <small>{artist.showYear}</small>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</Base>
