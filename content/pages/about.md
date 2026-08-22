@@ -16,14 +16,9 @@ facts:
 ---
 
 **At This Moment** celebrates painting in all its forms and its long-standing
-role in how people express themselves. The exhibition welcomes work in all
-painting media, as well as collage and mixed-media pieces with a strong
-painted element.
-
-Each edition provides a showcase for recent work from painters across New
-England, working in a broad array of styles and media. We encourage
-submissions from both emerging and established artists living or working
-anywhere in New England, and monetary prizes are given for outstanding work.
+role in how people express themselves. Each edition provides a showcase for 
+recent work from painters across New England, working in a broad array of styles 
+and media.
 
 The show is juried by an invited curator and displayed in LexArt's Molly
 Harding Nye Gallery, an outstanding museum-style exhibition space. Artists
