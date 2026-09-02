@@ -8,7 +8,7 @@ title: Call for Art
 status: closed
 show: 2026
 closed_notice: >
-  Submissions for the 2026 exhibition closed on July 10, 2026. We intend to run the show again sometime in 2028. Details will be announced here, and on the LexArt website.
+  Submissions for the 2026 exhibition closed on July 10, 2026. The next show will be held in June 2028. Details will be announced here, and on the LexArt website, in spring 2028.
 guidelines_url: https://drive.google.com/file/d/1wlYIwsXuOIwPNNJsFb_RXTBbbv8Tsp5h/view
 entry_url: https://www.lexart.org/event-details/at-this-moment-painting-and-collage-in-new-england
 entry_fee: $30
