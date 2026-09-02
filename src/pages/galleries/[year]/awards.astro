@@ -28,8 +28,12 @@ const total = show.awards.reduce((sum, award) => sum + award.works.length, 0);
     {
       show.juror?.name && (
         <p class="page-head__sub">
-          Selected by <a href={`${show.url}juror/`}>{show.juror.name}</a>
-          {show.juror.title && <>, {show.juror.title}</>}.
+          Prizes for At This Moment were made possible by a generous gift from Lee Ferrara,
+          a longtime LexArt member. The Lee Ferrara Best in Show, Second Place, and Third Place
+          prizes were selected by the juror, <a href={`${show.url}juror/`}>{show.juror.name}</a>
+          {show.juror.title && <>, {show.juror.title}</>}. The Best of LexArt prize was selected by
+          Matthew Siegel, Executive Director of LexArt, from the juried in pieces by members of 
+          the LexArt Painting Studio Group.
         </p>
       )
     }
